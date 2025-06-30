@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Gîte Duchénier - Confort et tranquillité en nature</title>
+    <meta name="description" content="Le Gîte Duchénier, situé dans un endroit de villégiature prisé par les amateurs de plein-air. Un séjour dans le confort et la tranquillité de la nature.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#98b97a',
+                        'brand-brown': '#6a3a2a',
+                        'brand-dark': '#3a3a3a',
+                        'brand-light': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'serif': ['Lora', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Simple style for active nav link and hamburger transition */
+        .nav-link-underline {
+            position: relative;
+        }
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #98b97a;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link-underline:hover::after, .nav-link-underline.active::after {
+            width: 100%;
+        }
+        .hamburger .bar {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Styles for the fullscreen image modal */
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen-modal.active {
+            display: flex;
+        }
+        .fullscreen-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+        .gallery-image {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-brand-dark">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="304804052_576662680914145_5910720824347762329_n.jpg" alt="Gîte Duchénier Logo" class="h-14 w-14 rounded-full">
+                <span class="text-2xl font-serif text-brand-brown font-bold">Gîte Duchénier</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#accueil" class="nav-link-underline text-brand-dark hover:text-brand-green">Accueil</a>
+                <a href="#gite" class="nav-link-underline text-brand-dark hover:text-brand-green">Le Gîte</a>
+                <a href="#galerie" class="nav-link-underline text-brand-dark hover:text-brand-green">Galerie</a>
+                <a href="#activites" class="nav-link-underline text-brand-dark hover:text-brand-green">Activités</a>
+                <a href="#avis" class="nav-link-underline text-brand-dark hover:text-brand-green">Avis</a>
+                <a href="#contact" class="nav-link-underline text-brand-dark hover:text-brand-green">Contact</a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="hamburger focus:outline-none">
+                    <span class="bar block w-6 h-0.5 bg-brand-brown"></span>
+                    <span class="bar block w-6 h-0.5 bg-brand-brown mt-1.5"></span>
+                    <span class="bar block w-6 h-0.5 bg-brand-brown mt-1.5"></span>
+                </button>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#accueil" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Accueil</a>
+            <a href="#gite" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Le Gîte</a>
+            <a href="#galerie" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Galerie</a>
+            <a href="#activites" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Activités</a>
+            <a href="#avis" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Avis</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-brand-green hover:text-white">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="accueil" class="relative h-[70vh] bg-cover bg-center" style="background-image: url('80866846_107109064145056_6470827891708919808_n.jpg');">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold drop-shadow-lg">Bienvenue au Gîte Duchénier</h1>
+                <p class="mt-4 text-lg md:text-xl max-w-2xl drop-shadow-md">Un séjour dans le confort et la tranquillité de la nature.</p>
+                <a href="#contact" class="mt-8 bg-brand-green text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-transform transform hover:scale-105">Réservez Votre Séjour</a>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-serif text-brand-brown">Un lieu de villégiature pour les amateurs de plein-air</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg leading-relaxed">
+                    Le Gîte Duchénier est l'endroit idéal pour se ressourcer. Nous offrons la possibilité d'accueillir jusqu'à 6 personnes dans un cadre enchanteur. À proximité, découvrez le Canyon des Portes de l’Enfer et la Réserve Duchénier, des lieux parfaits pour la randonnée, la chasse et la pêche.
+                </p>
+            </div>
+        </section>
+
+        <section id="gite" class="py-16 md:py-24 bg-brand-light">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-serif text-brand-brown text-center">Le gîte vous offre</h2>
+                <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Hébergement pour 6</h3>
+                        <p class="mt-2">Une chambre avec un grand lit et une autre avec un grand lit et deux lits simples.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Confort Moderne</h3>
+                        <p class="mt-2">Internet WiFi, télévision et air climatisé pour un séjour agréable.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Petit déjeuner inclus</h3>
+                        <p class="mt-2">Commencez chaque journée d'aventure avec un délicieux petit déjeuner.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Accès Facile</h3>
+                        <p class="mt-2">Situé à 25 km de Rimouski et avec un accès direct au sentier de motoneige #35.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galerie" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-serif text-brand-brown text-center">Notre Galerie</h2>
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2144.jpg" alt="Galerie Image 1 - Chambre" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="470242219_1134161961439756_5044302042134131496_n.jpg" alt="Galerie Image 2 - Chambre Lits Simples" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2147.jpg" alt="Galerie Image 3 - Espace de vie" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2148.jpg" alt="Galerie Image 4 - Coin repas" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2149.jpg" alt="Galerie Image 5 - Salle à manger" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2152.jpg" alt="Galerie Image 6 - Douche" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="IMG_2154.jpg" alt="Galerie Image 7 - Douche détail" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="1.jpg" alt="Galerie Image 8" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="2.jpg" alt="Galerie Image 9" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="3.jpg" alt="Galerie Image 10" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="4.jpg" alt="Galerie Image 11" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                    <div class="overflow-hidden rounded-lg shadow-lg aspect-w-1 aspect-h-1"><img src="5.jpg" alt="Galerie Image 12" class="gallery-image w-full h-full object-cover transition-transform duration-300 hover:scale-110"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activites" class="py-16 md:py-24 bg-brand-light">
+             <div class="container mx-auto px-6">
+                 <h2 class="text-3xl md:text-4xl font-serif text-brand-brown text-center">Activités à Proximité</h2>
+                <div class="mt-12 grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Nature et Randonnée</h3>
+                        <p class="mt-2">Découvrez Le Canyon des Portes de l’Enfer, reconnu pour ses chutes spectaculaires et ses sentiers de randonnée pédestre.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Chasse et Pêche</h3>
+                        <p class="mt-2">La Réserve faunique Duchénier est située à proximité pour les amateurs de chasse et de pêche.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                        <h3 class="font-serif text-xl text-brand-brown">Motoneige et Festivals</h3>
+                        <p class="mt-2">Accès facile au sentier #35. En juillet, participez au Festival de la fenaison de St-Narcisse.</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
+        <section id="avis" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-serif text-brand-brown text-center">Ce que nos visiteurs disent</h2>
+                <div class="mt-12 max-w-2xl mx-auto space-y-8">
+                     <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-green shadow-md">
+                        <p class="text-yellow-500 text-xl">★★★★★</p>
+                        <p class="mt-2 italic">"Nous sommes deux couples de motoneigistes qui avons été accueillis comme des rois par les propriétaires [...] WoW belle expérience, des gens super!"</p>
+                        <p class="mt-4 text-right font-bold text-brand-brown">- Visiteur Anonyme</p>
+                    </div>
+                    <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-green shadow-md">
+                        <p class="text-yellow-500 text-xl">★★★★★</p>
+                        <p class="mt-2 italic">"Très accueillant, confortable et relaxant. 10 sur 10. merci! Lyne et Patrick pour la super belle soirée !!!"</p>
+                        <p class="mt-4 text-right font-bold text-brand-brown">- Visiteur Anonyme</p>
+                    </div>
+                    <div class="bg-brand-light p-6 rounded-lg border-l-4 border-brand-green shadow-md">
+                        <p class="text-yellow-500 text-xl">★★★★★</p>
+                        <p class="mt-2 italic">"Gens très sympathiques et très accueillants!!!"</p>
+                        <p class="mt-4 text-right font-bold text-brand-brown">- Visiteur Anonyme</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 bg-brand-brown text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-serif">Prêt pour une escapade?</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg">
+                    Contactez-nous pour vérifier les disponibilités et réserver votre séjour. Nous avons hâte de vous accueillir!
+                </p>
+                <div class="mt-8">
+                     <p class="text-xl"><strong>Téléphone:</strong> (418) 750-9120</p>
+                     <p class="text-xl mt-2"><strong>Courriel:</strong> giteduchenier@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="fullscreen-modal" class="fullscreen-modal">
+        <span class="close-fullscreen" id="close-fullscreen">&times;</span>
+        <img src="" alt="Fullscreen Image" id="fullscreen-image">
+    </div>
+
+    <footer class="bg-brand-dark text-gray-400 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Le Gîte Duchénier. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuButton.classList.toggle('active');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuButton.classList.remove('active');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Fullscreen gallery functionality
+        const galleryImages = document.querySelectorAll('.gallery-image');
+        const modal = document.getElementById('fullscreen-modal');
+        const modalImg = document.getElementById('fullscreen-image');
+        const closeBtn = document.getElementById('close-fullscreen');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                modal.classList.add('active');
+                modalImg.src = image.src;
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target !== modalImg) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
